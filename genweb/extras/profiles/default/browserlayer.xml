@@ -1,0 +1,4 @@
+<layers>
+ <layer name="genweb.extras"
+        interface="genweb.extras.interfaces.IBrowserLayer" />
+</layers>

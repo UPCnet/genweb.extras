@@ -1,0 +1,13 @@
+language: python
+python:
+  - 2.7
+before_install:
+  - sudo apt-get install -qq build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev zlib1g-dev python-dev libjpeg62-dev libreadline-gplv2-dev python-imaging
+  - pip install --use-mirrors flake8
+install:
+  - python bootstrap.py
+  - bin/buildout -c travis.cfg -q
+script:
+  - flake8 setup.py
+  - flake8 genweb
+  - bin/test -s genweb.extras

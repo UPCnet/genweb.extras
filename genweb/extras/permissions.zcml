@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="genweb.extras">
+
+    <permission
+        id="genweb.extras.more_power"
+        title="genweb.extras: more power"
+        />
+
+</configure>
