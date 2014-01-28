@@ -32,7 +32,7 @@ setup(
         'plone.app.dexterity',
         'z3c.jbot'
     ],
-    smartportlet_require={
+    extras_require={
         'test': [
             'plone.app.testing',
         ]
