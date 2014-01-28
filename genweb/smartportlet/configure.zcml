@@ -5,7 +5,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:grok="http://namespaces.zope.org/grok"
-    i18n_domain="genweb.extras">
+    i18n_domain="genweb.smartportlet">
 
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
@@ -27,7 +27,7 @@
     <!-- Default profile -->
     <genericsetup:registerProfile
         name="default"
-        title="genweb.extras"
+        title="genweb.smartportlet"
         directory="profiles/default"
         description="Extra content and utilities for Genweb."
         provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -35,10 +35,10 @@
 
     <!-- Instalation import step -->
     <genericsetup:importStep
-        name="genweb_extras"
-        handler="genweb.extras.setuphandlers.importVarious"
-        title="genweb.extras imports"
-        description="genweb.extras: Various install import steps">
+        name="genweb_smartportlet"
+        handler="genweb.smartportlet.setuphandlers.importVarious"
+        title="genweb.smartportlet imports"
+        description="genweb.smartportlet: Various install import steps">
             <depends name="typeinfo"/>
     </genericsetup:importStep>
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from zope.interface import Interface
 
-from genweb.extras import _
+from genweb.smartportlet import _
 
 
 class IBrowserLayer(Interface):

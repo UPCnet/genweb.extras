@@ -4,7 +4,7 @@
     <genericsetup:upgradeSteps
         source="*"
         destination="1000"
-        profile="genweb.extras:default">
+        profile="genweb.smartportlet:default">
 
         <genericsetup:upgradeStep
             title="Update content types"

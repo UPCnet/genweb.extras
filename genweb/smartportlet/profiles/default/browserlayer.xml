@@ -1,0 +1,4 @@
+<layers>
+ <layer name="genweb.smartportlet"
+        interface="genweb.smartportlet.interfaces.IBrowserLayer" />
+</layers>

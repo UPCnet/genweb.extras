@@ -2,7 +2,7 @@
 Introduction
 ============
 
-Welcome to genweb.extras!
+Welcome to genweb.smartportlet!
 
 This distribution is about Extra content and utilities for Genweb
 
@@ -10,7 +10,7 @@ This distribution is about Extra content and utilities for Genweb
 Testing
 =======
 
-genweb.extras is tested with travis:
+genweb.smartportlet is tested with travis:
 
 .. image:: https://travis-ci.org/plone/plone.app.widgets.png?branch=master
 

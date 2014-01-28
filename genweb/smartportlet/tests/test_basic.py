@@ -3,7 +3,7 @@ import unittest2 as unittest
 
 from Products.CMFCore.utils import getToolByName
 
-from genweb.extras.testing import (
+from genweb.smartportlet.testing import (
     GENWEBEXTRAS_INTEGRATION_TESTING,
 )
 
@@ -18,9 +18,9 @@ class TestExample(unittest.TestCase):
         self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
 
     def test_product_is_installed(self):
-        """ Validate that genweb.extras has been installed
+        """ Validate that genweb.smartportlet has been installed
         """
-        pid = 'genweb.extras'
+        pid = 'genweb.smartportlet'
         installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
         self.assertTrue(pid in installed,
-                        'genweb.extras appears not to have been installed')
+                        'genweb.smartportlet appears not to have been installed')

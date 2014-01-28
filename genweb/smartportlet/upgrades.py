@@ -4,8 +4,8 @@ import logging
 from Products.CMFCore.utils import getToolByName
 
 
-PROFILE_ID = 'profile-genweb.extras:default'
-LOGGER = 'genweb.extras'
+PROFILE_ID = 'profile-genweb.smartportlet:default'
+LOGGER = 'genweb.smartportlet'
 
 
 def update_rolemap_tool(context, logger=None):

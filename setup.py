@@ -9,7 +9,7 @@ long_description = open('README.rst').read() + open('HISTORY.rst').read() + \
 
 
 setup(
-    name='genweb.extras',
+    name='genweb.smartportlet',
     version=version,
     description=description,
     long_description=long_description,
@@ -19,7 +19,7 @@ setup(
     ],
     author='Carles Bruguera',
     author_email='carles.bruguera@upcnet.es',
-    url='https://github.com/plone/genweb.extras',
+    url='https://github.com/plone/genweb.smartportlet',
     license='GPL',
     packages=find_packages(),
     include_package_data=True,
@@ -32,7 +32,7 @@ setup(
         'plone.app.dexterity',
         'z3c.jbot'
     ],
-    extras_require={
+    smartportlet_require={
         'test': [
             'plone.app.testing',
         ]

@@ -3,7 +3,7 @@ from five import grok
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-from genweb.extras import DOMAIN
+from genweb.smartportlet import DOMAIN
 
 
 #class View(grok.View):

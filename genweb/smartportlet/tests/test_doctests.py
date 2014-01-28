@@ -2,7 +2,7 @@
 import doctest
 import unittest2 as unittest
 from plone.testing import layered
-from genweb.extras.testing import (
+from genweb.smartportlet.testing import (
     GENWEBEXTRAS_FUNCTIONAL_TESTING,
     optionflags,
 )
@@ -16,7 +16,7 @@ def test_suite():
     suite = unittest.TestSuite()
     suite.addTests([
         layered(doctest.DocFileSuite('tests/%s' % test_file,
-                                     package='genwebextras',
+                                     package='genwebsmartportlet',
                                      optionflags=optionflags),
                 layer=GENWEBEXTRAS_FUNCTIONAL_TESTING)
         for test_file in functional_tests

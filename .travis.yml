@@ -10,4 +10,4 @@ install:
 script:
   - flake8 setup.py
   - flake8 genweb
-  - bin/test -s genweb.extras
+  - bin/test -s genweb.smartportlet

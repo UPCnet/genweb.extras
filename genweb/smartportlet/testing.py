@@ -13,28 +13,28 @@ from Products.CMFCore.utils import getToolByName
 from zope.configuration import xmlconfig
 
 
-class GenwebExtrasTesting(PloneSandboxLayer):
+class GenwebSmartPortletTesting(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         # load ZCML
-        import genweb.extras
-        xmlconfig.file('configure.zcml', genweb.extras,
+        import genweb.smartportlet
+        xmlconfig.file('configure.zcml', genweb.smartportlet,
                        context=configurationContext)
 
     def setUpPloneSite(self, portal):
         # install into the Plone site
-        applyProfile(portal, 'genweb.extras:default')
+        applyProfile(portal, 'genweb.smartportlet:default')
 
 
-GENWEBEXTRAS_FIXTURE = GenwebExtrasTesting()
+GENWEBEXTRAS_FIXTURE = GenwebSmartPortletTesting()
 GENWEBEXTRAS_INTEGRATION_TESTING = IntegrationTesting(
     bases=(GENWEBEXTRAS_FIXTURE, ),
-    name='GenwebExtrasLayer:Integration'
+    name='GenwebSmartPortletLayer:Integration'
 )
 GENWEBEXTRAS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(GENWEBEXTRAS_FIXTURE, ),
-    name='GenwebExtrasLayer:Functional'
+    name='GenwebSmartPortletLayer:Functional'
 )
 
 optionflags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)

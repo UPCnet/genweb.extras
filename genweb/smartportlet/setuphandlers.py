@@ -6,9 +6,9 @@ import logging
 
 
 def importVarious(context):
-    if context.readDataFile('genweb.extras_various.txt') is None:
+    if context.readDataFile('genweb.smartportlet_various.txt') is None:
         return
-    logger = logging.getLogger('genweb.extras')
+    logger = logging.getLogger('genweb.smartportlet')
 
     # add here your custom methods that need to be run when
-    # genweb.extras is installed
+    # genweb.smartportlet is installed
