@@ -3,13 +3,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="genweb.smartportlet">
 
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
-
+    <include package="plone.app.portlets" />
     <!-- Grok the package to initialise schema interfaces and content classes -->
     <grok:grok package="." />
 
@@ -19,6 +20,16 @@
 
     <!-- Register translations -->
     <i18n:registerTranslations directory="locales" />
+
+
+    <plone:portlet
+        name="portlets.SmartPortlet"
+        interface="genweb.smartportlet.ISmartPortlet"
+        assignment="genweb.smartportlet.Assignment"
+        renderer="genweb.smartportlet.Renderer"
+        addview="genweb.smartportlet.AddForm"
+        editview="genweb.smartportlet.EditForm"
+        />
 
     <!-- Templates overrides -->
     <include package="z3c.jbot" file="meta.zcml" />

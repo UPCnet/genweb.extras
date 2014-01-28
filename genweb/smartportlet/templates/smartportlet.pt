@@ -1,0 +1,17 @@
+<tal:items tal:define="items view/results"
+               tal:condition="items"
+               i18n:domain="plone">
+
+    <div class="portlet portlet-noticies">
+        <h2 tal:content="view/data/header"> <i class="icon-news large-icon pull-right"></i></h2>
+        <ul class="list-portlet">
+        <tal:item tal:repeat="item items">
+            <tal:renderer replace="structure python:view.renderItem(item)">
+            </tal:renderer>
+        </tal:item>
+        </ul>
+
+    </div>
+</tal:items>
+
+
