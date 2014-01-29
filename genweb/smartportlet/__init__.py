@@ -49,6 +49,11 @@ class ISmartPortlet(IPortletDataProvider):
         description=_(u"Title of the rendered portlet"),
         required=True)
 
+    description= schema.TextLine(
+        title=_(u"Portlet description"),
+        description=_(u"Description of the portlet"),
+        required=False)
+
     container_view = schema.Choice(
         title=_(u'label_container_view', default=u'Portlet view to use'),
         description=_(u"""Portlet view to use"""),
@@ -91,10 +96,16 @@ class ISmartPortlet(IPortletDataProvider):
         required=True,
         default=False)
 
-    more = schema.TextLine(
+    more_link = schema.TextLine(
         title=_(u"Show more link"),
         description=_(u"Link to display in the footer, leave empty to hide it"),
-        required=True)
+        required=False)
+
+    more_text = schema.TextLine(
+        title=_(u"Show more link text"),
+        description=_(u"Label the 'Show more link' defined avobe"),
+        default=u'+',
+        required=False)
 
 
 class Assignment(base.Assignment):
@@ -111,15 +122,17 @@ class Assignment(base.Assignment):
     limit = None
     random = False
 
-    def __init__(self, header=u"", sort_on="effective", sort_reversed="False", query=None, limit=None, random=False, more=u"", container_view="li_container_render"):
+    def __init__(self, header=u"", sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
         self.header = header
+        self.description = description
         self.sort_on = sort_on
         self.sort_reversed = sort_reversed
         self.limit = limit
         self.query = query
         self.random = random
         self.container_view = container_view
-        self.more = more
+        self.more_link = more_link
+        self.more_text = more_text
 
     @property
     def title(self):

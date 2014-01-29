@@ -4,6 +4,7 @@
 
     <div class="portlet genweb-smartportlet">
         <h2 tal:content="view/portlet/data/header"> <i class="icon-news large-icon pull-right"></i></h2>
+        <p tal:condition="view/portlet/data/description" tal:content="structure view/portlet/data/description"></p>
         <div tal:attributes="class view/css_class">
         <tal:item tal:repeat="item items">
             <div tal:define="renderer python:view.portlet.getItemRenderer(item)"
@@ -13,6 +14,10 @@
             </div>
         </tal:item>
         </div>
+
+    <a tal:condition="view/portlet/data/more_link" 
+       tal:attributes="href view/portlet/data/more_link"
+       tal:content="view/portlet/data/more_text"></a>
 
     </div>
 </tal:items>
