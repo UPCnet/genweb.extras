@@ -4,7 +4,7 @@
 
     <div class="portlet genweb-smartportlet">
         <h2 tal:content="view/portlet/data/header"> <i class="icon-news large-icon pull-right"></i></h2>
-        <div class="view/css_class">
+        <div tal:attributes="class view/css_class">
         <tal:item tal:repeat="item items">
             <div tal:define="renderer python:view.portlet.getItemRenderer(item)"
                 tal:attributes="class renderer/css_class">    
