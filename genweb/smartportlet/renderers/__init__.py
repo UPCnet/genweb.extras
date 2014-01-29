@@ -11,8 +11,21 @@ class PortletItemRenderer(object):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-        return self.template(self)
+        return {'css_class': self.css_class,
+                'html':self.template(self)}
 
-    def rendererClass(self):
-        return self.css_class
+
+class PortletContainerRenderer(object):
+
+    def __init__(self, context):
+        self.portlet = context
+        self.context = self.portlet.context
+        self.request = self.portlet.request
+
+    def __call__(self, **kwargs):
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+        return self.template(self)
 

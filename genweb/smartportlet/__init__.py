@@ -7,6 +7,7 @@ from zope.interface import implements
 from zope.component import getUtility
 from zope.component import getMultiAdapter
 from zope.component import getAdapter
+from zope.component import getAdapters
 
 from Products.CMFCore.utils import getToolByName
 
@@ -21,8 +22,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 
-from plone.portlet.collection import PloneMessageFactory as _
-
 from plone.formwidget.querystring.widget import QueryStringFieldWidget
 
 from z3c.form import field
@@ -31,6 +30,7 @@ from plone.app.portlets.browser import z3cformhelper
 
 from plone.app.querystring.querybuilder import QueryBuilder
 from genweb.smartportlet.renderers.interfaces import IPortletItemRenderer
+from genweb.smartportlet.renderers.interfaces import IPortletContainerRenderer
 import sys
 from Acquisition import aq_parent, aq_inner
 from plone.app.collection.interfaces import ICollection
@@ -48,6 +48,13 @@ class ISmartPortlet(IPortletDataProvider):
         title=_(u"Portlet header"),
         description=_(u"Title of the rendered portlet"),
         required=True)
+
+    container_view = schema.Choice(
+        title=_(u'label_container_view', default=u'Portlet view to use'),
+        description=_(u"""Portlet view to use"""),
+        vocabulary="genweb.smartportlet.AvailablePortletContainerRenderers",
+        required=True
+    )
 
     query = schema.List(
         title=_(u'label_query', default=u'Search terms'),
@@ -104,14 +111,15 @@ class Assignment(base.Assignment):
     limit = None
     random = False
 
-    def __init__(self, header=u"", sort_on="effective", sort_reversed="False", query=None, limit=None, random=False, more=u""):
+    def __init__(self, header=u"", sort_on="effective", sort_reversed="False", query=None, limit=None, random=False, more=u"", container_view="li_container_render"):
         self.header = header
         self.sort_on = sort_on
         self.sort_reversed = sort_reversed
         self.limit = limit
         self.query = query
         self.random = random
-        self.more = u""
+        self.container_view = container_view
+        self.more = more
 
     @property
     def title(self):
@@ -123,13 +131,14 @@ class Assignment(base.Assignment):
 
 class Renderer(base.Renderer):
 
-    _template = ViewPageTemplateFile('templates/smartportlet.pt')
-    render = _template
-
     def __init__(self, *args):
         base.Renderer.__init__(self, *args)
         self.plone_view = getMultiAdapter((self.context, self.request), name='plone')
         self.ptypes = getToolByName(self.context, 'portal_types')
+
+    def render(self):
+        renderer = getAdapter(self, IPortletContainerRenderer, name=self.data.container_view)
+        return renderer()
 
     @property
     def available(self):
@@ -147,7 +156,7 @@ class Renderer(base.Renderer):
         else:
             return self._standard_results()
 
-    def renderItem(self, item):
+    def getItemRenderer(self, item):
         args = dict(
             item=item,
             toLocalizedTime=self.plone_view.toLocalizedTime,

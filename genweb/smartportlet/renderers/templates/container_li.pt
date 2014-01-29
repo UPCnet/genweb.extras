@@ -1,0 +1,20 @@
+<tal:items tal:define="items view/portlet/results"
+               tal:condition="items"
+               i18n:domain="plone">
+
+    <div class="portlet genweb-smartportlet">
+        <h2 tal:content="view/portlet/data/header"> <i class="icon-news large-icon pull-right"></i></h2>
+        <ul tal:attributes="class view/css_class">
+        <tal:item tal:repeat="item items">
+            <li tal:define="renderer python:view.portlet.getItemRenderer(item)"
+                tal:attributes="class renderer/css_class">    
+                <tal:renderer replace="structure renderer/html">
+                </tal:renderer>
+            </li>
+        </tal:item>
+        </ul>
+
+    </div>
+</tal:items>
+
+
