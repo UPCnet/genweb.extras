@@ -30,7 +30,8 @@ setup(
         'Products.CMFPlone',
         'five.grok',
         'plone.app.dexterity',
-        'z3c.jbot'
+        'z3c.jbot',
+        'plone.formwidget.querystring'
     ],
     extras_require={
         'test': [
