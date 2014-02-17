@@ -49,6 +49,13 @@ class ISmartPortlet(IPortletDataProvider):
         description=_(u"Title of the rendered portlet"),
         required=True)
 
+    show_header = schema.Bool(
+        title=_(u'label_show_header', default=u'Show header'),
+        description=_(u'Renders the header'),
+        required=False,
+        default=True
+    )
+
     description= schema.TextLine(
         title=_(u"Portlet description"),
         description=_(u"Description of the portlet"),
@@ -122,7 +129,7 @@ class Assignment(base.Assignment):
     limit = None
     random = False
 
-    def __init__(self, header=u"", sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
+    def __init__(self, header=u"", show_header=True, sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
         self.header = header
         self.description = description
         self.sort_on = sort_on
@@ -133,6 +140,7 @@ class Assignment(base.Assignment):
         self.container_view = container_view
         self.more_link = more_link
         self.more_text = more_text
+        self.show_header = show_header
 
     @property
     def title(self):
