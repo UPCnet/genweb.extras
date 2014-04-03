@@ -90,6 +90,12 @@ class ISmartPortlet(IPortletDataProvider):
         required=False,
     )
 
+    sort_folderorder = schema.Bool(
+        title=_(u'label_sort_folderorder', default=u'Order as in folder'),
+        description=_(u'Override query sort order using folder order'),
+        required=False,
+    )
+
     limit = schema.Int(
         title=_(u"Limit"),
         description=_(u"Specify the maximum number of items to show in the "
@@ -129,11 +135,12 @@ class Assignment(base.Assignment):
     limit = None
     random = False
 
-    def __init__(self, header=u"", show_header=True, sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
+    def __init__(self, header=u"", show_header=True, sort_folderorder=False, sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
         self.header = header
         self.description = description
         self.sort_on = sort_on
         self.sort_reversed = sort_reversed
+        self.sort_folderorder = sort_folderorder
         self.limit = limit
         self.query = query
         self.random = random
@@ -192,14 +199,20 @@ class Renderer(base.Renderer):
     def queryCatalog(self, limit):
         """
         """
+
         querybuilder = QueryBuilder(self, self.request)
         if not hasattr(self.data, 'sort_on'):
             self.data.sort_on = 'effective'
         if not hasattr(self.data, 'sort_reversed'):
             self.data.sort_reversed = False
+        if not hasattr(self.data, 'sort_folderorder'):
+            self.data.sort_folderorder = False
 
         sort_order = 'descending' if self.data.sort_reversed else 'ascending'
         sort_on = self.data.sort_on
+
+        if self.data.sort_folderorder:
+            sort_on = 'getObjPositionInParent'
 
         query = list(self.data.query)
 
