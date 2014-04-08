@@ -1,40 +1,33 @@
 # -*- coding: utf-8 -*-
-from zope.i18nmessageid import MessageFactory
-
-import random
-
-from zope.interface import implements
-from zope.component import getUtility
-from zope.component import getMultiAdapter
-from zope.component import getAdapter
-from zope.component import getAdapters
-
-from Products.CMFCore.utils import getToolByName
-
-from plone.portlets.interfaces import IPortletDataProvider
-from plone.app.portlets.portlets import base
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from z3c.form import field
+from z3c.form import button
 
 from zope import schema
+from zope.component import getAdapter
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.interface import implements
+from zope.i18n import MessageFactory
 
-from plone.memoize.instance import memoize
-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-from plone.i18n.normalizer.interfaces import IIDNormalizer
-
-from plone.formwidget.querystring.widget import QueryStringFieldWidget
-
-from z3c.form import field
-
-from plone.app.portlets.browser import z3cformhelper
-
-from plone.app.querystring.querybuilder import QueryBuilder
-from genweb.smartportlet.renderers.interfaces import IPortletItemRenderer
-from genweb.smartportlet.renderers.interfaces import IPortletContainerRenderer
-import sys
-from Acquisition import aq_parent, aq_inner
 from plone.app.collection.interfaces import ICollection
+from plone.app.portlets.browser import z3cformhelper
+from plone.app.portlets.portlets import base
+from plone.app.querystring.querybuilder import QueryBuilder
+from plone.formwidget.querystring.widget import QueryStringFieldWidget
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+from plone.portlets.interfaces import IPortletDataProvider
+from Products.CMFCore.utils import getToolByName
+from plone.directives import form
 
+from genweb.smartportlet.renderers.interfaces import IPortletContainerRenderer
+from genweb.smartportlet.renderers.interfaces import IPortletItemRenderer
+
+from Products.statusmessages.interfaces import IStatusMessage
+
+import random
+import sys
 
 DOMAIN = u'genweb.smartportlet'
 _ = MessageFactory(DOMAIN)
@@ -56,7 +49,7 @@ class ISmartPortlet(IPortletDataProvider):
         default=True
     )
 
-    description= schema.TextLine(
+    description = schema.TextLine(
         title=_(u"Portlet description"),
         description=_(u"Description of the portlet"),
         required=False)
@@ -78,13 +71,15 @@ class ISmartPortlet(IPortletDataProvider):
         required=False
     )
 
+    form.mode(sort_on='hidden')
     sort_on = schema.TextLine(
         title=_(u'label_sort_on', default=u'Sort on'),
         description=_(u"Sort the collection on this index"),
         required=False,
     )
 
-    sort_reversed = schema.Bool(
+    form.mode(sort_order='hidden')
+    sort_order = schema.Bool(
         title=_(u'label_sort_reversed', default=u'Reversed order'),
         description=_(u'Sort the results in reversed order'),
         required=False,
@@ -248,6 +243,8 @@ class AddForm(z3cformhelper.AddForm):
 
     fields = field.Fields(ISmartPortlet)
     fields['query'].widgetFactory = QueryStringFieldWidget
+    fields['sort_on'].mode = 'hidden'
+    fields['sort_order'].mode = 'hidden'
 
     label = _(u"Add Query Portlet")
     description = _(u"This portlet displays a listing of items from a "
@@ -261,7 +258,15 @@ class EditForm(z3cformhelper.EditForm):
 
     fields = field.Fields(ISmartPortlet)
     fields['query'].widgetFactory = QueryStringFieldWidget
+    fields['sort_on'].mode = 'hidden'
+    fields['sort_order'].mode = 'hidden'
 
     label = _(u"Edit Collection Portlet")
     description = _(u"This portlet displays a listing of items from a "
                     u"Collection.")
+
+    def extractData(self):
+        data, errors = super(EditForm, self).extractData()
+        data['sort_on'] = self.request.form.get('sort_on')
+        data['sort_order'] = False if self.request.form.get('sort_order') is None else True
+        return data, errors
