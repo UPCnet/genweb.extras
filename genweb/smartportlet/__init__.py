@@ -130,11 +130,11 @@ class Assignment(base.Assignment):
     limit = None
     random = False
 
-    def __init__(self, header=u"", show_header=True, sort_folderorder=False, sort_on="effective", sort_reversed="False", description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
+    def __init__(self, header=u"", show_header=True, sort_folderorder=False, sort_on="effective", sort_order=False, description='', query=None, limit=None, random=False, more_link=u"", more_text=u"+", container_view="li_container_render"):
         self.header = header
         self.description = description
         self.sort_on = sort_on
-        self.sort_reversed = sort_reversed
+        self.sort_order = sort_order
         self.sort_folderorder = sort_folderorder
         self.limit = limit
         self.query = query
