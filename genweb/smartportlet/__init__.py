@@ -194,16 +194,15 @@ class Renderer(base.Renderer):
     def queryCatalog(self, limit):
         """
         """
-
         querybuilder = QueryBuilder(self, self.request)
         if not hasattr(self.data, 'sort_on'):
             self.data.sort_on = 'effective'
-        if not hasattr(self.data, 'sort_reversed'):
-            self.data.sort_reversed = False
+        if not hasattr(self.data, 'sort_order'):
+            self.data.sort_order = False
         if not hasattr(self.data, 'sort_folderorder'):
             self.data.sort_folderorder = False
 
-        sort_order = 'descending' if self.data.sort_reversed else 'ascending'
+        sort_order = 'descending' if self.data.sort_order else 'ascending'
         sort_on = self.data.sort_on
 
         if self.data.sort_folderorder:
