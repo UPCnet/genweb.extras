@@ -1,9 +1,9 @@
 
-1.1 (unreleased)
+1.1 (2015-05-13)
 ----------------
 
-- Nothing changed yet.
-
+* Solucionar sort_order [Pilar Marinas]
+* Get rid of sample content [Victor Fernandez de Alba]
 
 1.0 (2014-05-27)
 ----------------
